@@ -27,27 +27,27 @@ public class CollaborativeFiltering {
     *  Collaborative filtering is the underlying algorithm of this program which works with Jacarrd Matrix and Pearson
     *  Matrix separately, after computation, bring out two recommendation lists respectively. 
     *  
-	*  Required input file should looks like this : 
-	*  	
-	*   9842500,16199,0,5ÔÂ6ÈÕ
-	*   4356600,13299,3,5ÔÂ8ÈÕ
-	*   ...
-	*  
-	*  Each row in this file is an entry of transaction log. The first column stands for user id, the second one means
-	*  brand id, the third one is action code(0 means click event, 1 means cart event,2 means favorite event and 3
-	*  means buy event) and the last column is time stamp of this entry.
-	*  
-	*  This program do some pre-process(combine duplicate entries and then sort entries) against original input file
-	*  before computation actually starts. After that, program will build score matrix according to the sorted transaction
-	*  log. With the score matrix we can now generate Jacarrd correlation matrix and Pearson correlation matrix which then
-	*  are used to compute correlation coefficients separately, the correlation coefficients indicate the probability of 
-	*  user finally buy a particular brand in future.    
-	*  
-	*  USAGE:
-	*  	First, you need to compile this source code;
-	*  	then you can run this program in command line like this :
-	*  	java CollaborativeFiltering input_file_path output_dir click_threshold neighbor_filter_value recommendation_length_limit[OPTIONNAL] 
-	*/
+    *  Required input file should looks like this : 
+    *  	
+    *   9842500,16199,0,5æœˆ6æ—¥
+    *   4356600,13299,3,5æœˆ8æ—¥
+    *   ...
+    *  
+    *  Each row in this file is an entry of transaction log. The first column stands for user id, the second one means
+    *  brand id, the third one is action code(0 means click event, 1 means cart event,2 means favorite event and 3
+    *  means buy event) and the last column is time stamp of this entry.
+    *  
+    *  This program do some pre-process(combine duplicate entries and then sort entries) against original input file
+    *  before computation actually starts. After that, program will build score matrix according to the sorted transaction
+    *  log. With the score matrix we can now generate Jacarrd correlation matrix and Pearson correlation matrix which then
+    *  are used to compute correlation coefficients separately, the correlation coefficients indicate the probability of 
+    *  user finally buy a particular brand in future.    
+    *  
+    *  USAGE:
+    *  	First, you need to compile this source code;
+    *  	then you can run this program in command line like this :
+    *  	java CollaborativeFiltering input_file_path output_dir click_threshold neighbor_filter_value recommendation_length_limit[OPTIONNAL] 
+    */
 	
 	//assistance variables
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -126,7 +126,7 @@ public class CollaborativeFiltering {
 				//append the new record to the userOrderedList
 				if((work = this.userOrderedList.get(tr.getUser_id())) != null ){
 					
-					//ÒÔÊ±¼ä´ÁºÍÆ·ÅÆ±àºÅÀ´ÅÅĞò£¬ÕâÑù¾Í²»ĞèÒªÔÚ²åÈëÊ±±éÀúÕû¸öÁ´±í
+					//ä»¥æ—¶é—´æˆ³å’Œå“ç‰Œç¼–å·æ¥æ’åºï¼Œè¿™æ ·å°±ä¸éœ€è¦åœ¨æ’å…¥æ—¶éå†æ•´ä¸ªé“¾è¡¨
 					
 					while(work != null && work.getTime_int() < tr.getTime_int()){
 						pre = work;
@@ -223,15 +223,15 @@ public class CollaborativeFiltering {
 						continue;
 					}
 				}
-				//map ÖĞÃ»ÓĞÕâ¸ö¼ÇÂ¼£¬ĞÂ½¨Ö®
+				//map ä¸­æ²¡æœ‰è¿™ä¸ªè®°å½•ï¼Œæ–°å»ºä¹‹
 				else{
 					this.userOrderedList.put(tr.getUser_id(), tr);
 					//System.out.println("<<<<add new item into HashMap");
 				}
 			}
-			//Ö±½ÓÊä³öuserOrderedListÄÚÈİ¼´¿É£¨°´brandid ½øĞĞ±éÀú£©
+			//ç›´æ¥è¾“å‡ºuserOrderedListå†…å®¹å³å¯ï¼ˆæŒ‰brandid è¿›è¡Œéå†ï¼‰
 			System.out.println("entry sort done , now begin to write result into file " + this.outputPath + "/userid_ordered_sample.csv");
-			//<<<<<<<<< ÏòÎÄ¼şÖĞÊä³ö´¦Àí½á¹û
+			//<<<<<<<<< å‘æ–‡ä»¶ä¸­è¾“å‡ºå¤„ç†ç»“æœ
 			writer1 = new BufferedWriter(new FileWriter(this.outputPath + "/userid_ordered_sample.csv"));
 			StringBuilder sb1 = new StringBuilder();
 			String [] keys = this.userOrderedList.keySet().toArray(new String[0]);
@@ -290,7 +290,7 @@ public class CollaborativeFiltering {
 			writer2.write(sb2.toString());
 			Date end = new Date();
 			System.out.println("pre-process done !");
-			System.out.println("<<<<<<<<< ¹²ºÄÊ± £º " + (begin.getTime() - end.getTime())/1000 + "Ãë");
+			System.out.println("<<<<<<<<< å…±è€—æ—¶ ï¼š " + (begin.getTime() - end.getTime())/1000 + "ç§’");
 			
 			scoreMatrix = new int[this.userNum][this.brandNum];
 			jaccardMatrix = new float[userNum][brandNum];
@@ -393,7 +393,7 @@ public class CollaborativeFiltering {
 				work = new Record(temp[0],temp[1],Integer.parseInt(temp[2]),Integer.parseInt(temp[4]));
 				
 				
-				//·ÖÅäĞÂĞĞ
+				//åˆ†é…æ–°è¡Œ
 				if((bindex = this.brandIndex.get(work.getBrand_id())) == null){
 					this.brandIndex.put(work.getBrand_id(), (int) nextBrandIndex ++);
 					bindex = this.brandIndex.get(work.getBrand_id());
@@ -401,20 +401,20 @@ public class CollaborativeFiltering {
 				}
 				
 				if((uindex = this.userIndex.get(work.getUser_id())) == null){
-					//¸ÃÓÃ»§»¹Î´±»·ÖÅä¶ÀÁ¢µÄÊı×éĞĞ
+					//è¯¥ç”¨æˆ·è¿˜æœªè¢«åˆ†é…ç‹¬ç«‹çš„æ•°ç»„è¡Œ
 					this.userIndex.put(work.getUser_id(), (int) nextUserIndex ++);
 					uindex = this.userIndex.get(work.getUser_id());
 					this.index2User.put(uindex, work.getUser_id());
 				}
 				
-				//½«µ±Ç°record´æÈëÊı×é
+				//å°†å½“å‰recordå­˜å…¥æ•°ç»„
 				
 				if((actionCounter = work.getCounter()) > 0 && (actionType = work.getType()) > -1){
 					if(this.scoreMatrix[uindex][bindex] == 5){
 						continue;
 					}
 					else if(actionType == 1){
-						//¹ºÂòĞĞÎª
+						//è´­ä¹°è¡Œä¸º
 						this.scoreMatrix[uindex][bindex] = 5;
 						continue;
 					}
@@ -432,9 +432,9 @@ public class CollaborativeFiltering {
 				}
 			}
 			
-			//´òÓ¡¼ÆËãµÃµ½µÄ¾ØÕó
+			//æ‰“å°è®¡ç®—å¾—åˆ°çš„çŸ©é˜µ
 			StringBuilder sb2 = new StringBuilder();
-			//sb3ÒÔÁ´±íĞÎÊ½´òÓ¡½á¹û¾ØÕó
+			//sb3ä»¥é“¾è¡¨å½¢å¼æ‰“å°ç»“æœçŸ©é˜µ
 			StringBuilder sb3 = new StringBuilder();
 			
 			for(int i = 0;i < this.userNum; i ++){
@@ -468,11 +468,11 @@ public class CollaborativeFiltering {
 			writer2 = new BufferedWriter(new FileWriter(this.outputPath + "/score_matrix.csv"));
 			
 			writer2.write(sb2.toString());
-			//ÔÙÒÔÁ´±íµÄĞÎÊ½´æ´¢ÆÀ·Ö¾ØÕó(¹ıÂËµôËùÓĞÆÀ·ÖÎªÁãµãÔªËØ)
+			//å†ä»¥é“¾è¡¨çš„å½¢å¼å­˜å‚¨è¯„åˆ†çŸ©é˜µ(è¿‡æ»¤æ‰æ‰€æœ‰è¯„åˆ†ä¸ºé›¶ç‚¹å…ƒç´ )
 			writer3 = new BufferedWriter(new FileWriter(this.outputPath + "/score_list.csv"));
 			writer3.write(sb3.toString());
 			
-			//´òÓ¡¸¨ÖúÎÄ¼ş
+			//æ‰“å°è¾…åŠ©æ–‡ä»¶
 			StringBuilder sb4 = new StringBuilder();
 			for(int i = 0;i < this.userNum;i ++){
 				sb4.append(i + "," + this.index2User.get(i) + '\n');
@@ -552,7 +552,7 @@ public class CollaborativeFiltering {
 		float j = 0;
 		long f11 = 0;
 		long fTotal = 0;
-		//¶Ô³Æ¾ØÕó
+		//å¯¹ç§°çŸ©é˜µ
 		for(currentHost = 0;currentHost < this.userNum; currentHost ++){
 			
 			for(neighborTest = currentHost + 1;neighborTest < this.userNum; neighborTest ++){
@@ -571,7 +571,7 @@ public class CollaborativeFiltering {
 					}
 				}
 				
-				//¼ÆËãjaccardÏµÊı
+				//è®¡ç®—jaccardç³»æ•°
 				if(fTotal != 0){
 					j = (float)f11/(float)fTotal;
 					this.jaccardMatrix[currentHost][neighborTest] = j;
@@ -583,7 +583,7 @@ public class CollaborativeFiltering {
 			
 		}
 		
-		//½«½á¹ûĞ´ÈëÎÄ¼ş
+		//å°†ç»“æœå†™å…¥æ–‡ä»¶
 		try {
 			//sb.append("--------\t");
 			/*for(int i = 0;i < this.userNum;i ++){
@@ -622,11 +622,11 @@ public class CollaborativeFiltering {
 	//build Pearson correlation matrix
 	public void buildPearsonMatrix(){
 		
-		//¶Ô³Æ¾ØÕó
+		//å¯¹ç§°çŸ©é˜µ
 		
-		//Ê×ÏÈ¼ÆËãÁ½ÓÃ»§µÄ¹²ÓĞ¼¯
-		// ²ÉÓÃ¶ş¼¶±íµÄ·½Ê½´æ´¢¹²ÓĞ¼¯ºÏ
-		//³õÊ¼»¯¹²ÓĞ¼¯½á¹¹
+		//é¦–å…ˆè®¡ç®—ä¸¤ç”¨æˆ·çš„å…±æœ‰é›†
+		// é‡‡ç”¨äºŒçº§è¡¨çš„æ–¹å¼å­˜å‚¨å…±æœ‰é›†åˆ
+		//åˆå§‹åŒ–å…±æœ‰é›†ç»“æ„
 		for(int i = 0;i < this.userNum;i ++){
 			Map<String , List<String>> item = new HashMap<String , List<String>>();
 			for(int j = 0;j < this.userNum;j ++){
@@ -639,10 +639,10 @@ public class CollaborativeFiltering {
 			}
 			this.mutualSet.put(this.index2User.get(i), item);
 		}
-		//½¨Á¢¹²ÓĞ¼¯
+		//å»ºç«‹å…±æœ‰é›†
 		for(int i = 0;i < this.userNum;i ++){
 			for(int j = i + 1;j < this.userNum;j ++){
-				//Ò»¶¨Òª×¢Òâ¶Ô³ÆĞÔ  u-vÓëv-u
+				//ä¸€å®šè¦æ³¨æ„å¯¹ç§°æ€§  u-vä¸v-u
 				for(int k = 0;k < this.brandNum;k ++){
 					if(this.scoreMatrix[i][k] > 0 && this.scoreMatrix[j][k] > 0){
 						this.mutualSet.get(this.index2User.get(i)).get(this.index2User.get(j)).add(this.index2Brand.get(k));
@@ -663,11 +663,11 @@ public class CollaborativeFiltering {
 		float sum3 = 0;
 		float sum4 = 0;
 		float sum5 = 0;
-		//¼ÆËãÏà¹Ø¾ØÕó
+		//è®¡ç®—ç›¸å…³çŸ©é˜µ
 		for(int i = 0;i < this.userNum;i ++){
 			
 			for(int j = i + 1;j < this.userNum; j ++){
-				//u-vºÍv-uµÄÏà¹ØĞÔ
+				//u-vå’Œv-uçš„ç›¸å…³æ€§
 				array = null;
 				averageU = 0;
 				averageV = 0;
@@ -705,14 +705,14 @@ public class CollaborativeFiltering {
 					}
 				}
 				/*else{
-					//ÎŞ¹²ÓĞ¼¯
+					//æ— å…±æœ‰é›†
 					this.personMatrix[i][j] = 0;
 					this.personMatrix[j][i] = 0;
 				}*/
 				
 			}
 		}
-		//´òÓ¡¾ØÕó
+		//æ‰“å°çŸ©é˜µ
 		BufferedWriter writer = null;
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -747,9 +747,9 @@ public class CollaborativeFiltering {
 	//generate recommendation list
 	public void recommendationItems(){
 		
-		//Ê×ÏÈ¹ıÂË²¢Ñ¡Ôñ³ö¸÷ÓÃ»§µÄ¡°ÁÚ¾Ó¡±
+		//é¦–å…ˆè¿‡æ»¤å¹¶é€‰æ‹©å‡ºå„ç”¨æˆ·çš„â€œé‚»å±…â€
 		
-		//³õÊ¼»¯
+		//åˆå§‹åŒ–
 		for(int i = 0;i < this.userNum;i ++){
 			List<String> nei = new ArrayList<String>();
 			this.jaccardNeighbors.put(this.index2User.get(i), nei);
@@ -757,7 +757,7 @@ public class CollaborativeFiltering {
 			List<String> nei2 = new ArrayList<String>();
 			this.pearsonNeighbor.put(this.index2User.get(i), nei2);
 			
-			//ÆäÖĞµÄfloatÓÃÓÚ´æ´¢Æ·ÅÆ¶Ôµ±Ç°ÓÃ»§µÄÍÆ¼öÆÀ·Ö     Ã¿ÂÖ´¦Àí¹ıºó±ØĞë½«¸ÃÖµÇå¿Õ
+			//å…¶ä¸­çš„floatç”¨äºå­˜å‚¨å“ç‰Œå¯¹å½“å‰ç”¨æˆ·çš„æ¨èè¯„åˆ†     æ¯è½®å¤„ç†è¿‡åå¿…é¡»å°†è¯¥å€¼æ¸…ç©º
 			Map<String,Float> his1 = new HashMap<String,Float>();
 			this.buyHistory.put(this.index2User.get(i), his1);
 			
@@ -768,7 +768,7 @@ public class CollaborativeFiltering {
 			this.pearsonRecommedation.put(this.index2User.get(i), m2);
 
 		}
-		//É¸Ñ¡ÁÚ¾Ó
+		//ç­›é€‰é‚»å±…
 		for(int i = 0;i < this.userNum;i ++){
 			for(int j = 0;j < this.userNum;j ++){
 				if(this.jaccardMatrix[i][j] >= this.neighborFilter){
@@ -780,7 +780,7 @@ public class CollaborativeFiltering {
 			}
 		}
 		int buyTotal = 0;
-		//Ñ¡È¡³öÃ¿¸öÓÃ»§µÄ¹ºÂòÀúÊ·£¨²Î¿¼ÆÀ·Ö¾ØÕó £¬µ«±ØĞë±£Ö¤ÓÃ»§¹ºÂòĞĞÎªµÄÆÀ·ÖÊÇÎ¨Ò»µÄ£¬·ñÔò±ØĞë´Óuserid_orderedÖĞ¶ÁÈ¡Êı¾İ.¶øÇÒÎŞ·¨´ÓÆÀ·Ö¾ØÕóµÃµ½¹ºÂòÊıÁ¿ĞÅÏ¢£©
+		//é€‰å–å‡ºæ¯ä¸ªç”¨æˆ·çš„è´­ä¹°å†å²ï¼ˆå‚è€ƒè¯„åˆ†çŸ©é˜µ ï¼Œä½†å¿…é¡»ä¿è¯ç”¨æˆ·è´­ä¹°è¡Œä¸ºçš„è¯„åˆ†æ˜¯å”¯ä¸€çš„ï¼Œå¦åˆ™å¿…é¡»ä»userid_orderedä¸­è¯»å–æ•°æ®.è€Œä¸”æ— æ³•ä»è¯„åˆ†çŸ©é˜µå¾—åˆ°è´­ä¹°æ•°é‡ä¿¡æ¯ï¼‰
 		for(int i = 0;i < this.userNum;i ++){
 			for(int j = 0;j < this.brandNum;j ++){
 				if(this.scoreMatrix[i][j] == 5){
@@ -802,7 +802,7 @@ public class CollaborativeFiltering {
 			brand2DegreeJac = new HashMap<String,Integer>();
 			brand2DegreePear = new HashMap<String,Integer>();
 			a3 = null;
-			//Ê×ÏÈÎªµ±Ç° host³õÊ¼»¯ËùÓĞ buyhistoryÖĞÏà¹ØÉÌÆ·µÄvalue
+			//é¦–å…ˆä¸ºå½“å‰ hoståˆå§‹åŒ–æ‰€æœ‰ buyhistoryä¸­ç›¸å…³å•†å“çš„value
 			if(a1 != null && a1.length > 0){
 				
 				for(int k = 0;k < a1.length;k ++){
@@ -812,7 +812,7 @@ public class CollaborativeFiltering {
 						for(int q = 0;q < a2.length;q ++){
 							if(k == i){
 								this.buyHistory.get(a1[k]).put(a2[q], (float) 1);
-								//Ïòcommunity ÖĞÌí¼ÓÉÌÆ·
+								//å‘community ä¸­æ·»åŠ å•†å“
 								brand2DegreeJac.put(a2[q], 1);
 								brand2DegreePear.put(a2[q], 1);
 							}
@@ -825,7 +825,7 @@ public class CollaborativeFiltering {
 					}
 				}
 				
-				// ³õÊ¼»¯¸÷ÉÌÆ· ÔÚµ±Ç°community ÖĞµÄ degree
+				// åˆå§‹åŒ–å„å•†å“ åœ¨å½“å‰community ä¸­çš„ degree
 				
 				//jaccard
 				List<String> jn = this.jaccardNeighbors.get(a1[i]);
@@ -868,7 +868,7 @@ public class CollaborativeFiltering {
 				}
 				
 				a3 = null;
-				//È»ºó¼ÆËãÁÚ¾ÓµÄvalue
+				//ç„¶åè®¡ç®—é‚»å±…çš„value
 				Map<String,Float> userValueJac = new HashMap<String,Float>();
 				
 				// jaccard
@@ -909,7 +909,7 @@ public class CollaborativeFiltering {
 				}
 				
 				
-				//×îºó¼ÆËã´ıÍÆ¼öÆ·ÅÆµÄvalue, ²»°üº¬µ±Ç°ÓÃ»§a1[i]ÒÑ¾­¹ºÂòµÄÎïÆ·
+				//æœ€åè®¡ç®—å¾…æ¨èå“ç‰Œçš„value, ä¸åŒ…å«å½“å‰ç”¨æˆ·a1[i]å·²ç»è´­ä¹°çš„ç‰©å“
 				
 				a3 = null;
 				
@@ -925,7 +925,7 @@ public class CollaborativeFiltering {
 								if(!this.buyHistory.get(a1[i]).containsKey(a3[b]) 
 										&& !this.jaccardRecommedation.get(a1[i]).containsKey(a3[b])){
 									float recommValue = 0;
-									//ÔÚµ±Ç°community ÖĞ²é¿´»¹ÓĞÄÄĞ©ÁÚ¾Ó¹ºÂòÁË¸ÃÎïÆ·
+									//åœ¨å½“å‰community ä¸­æŸ¥çœ‹è¿˜æœ‰å“ªäº›é‚»å±…è´­ä¹°äº†è¯¥ç‰©å“
 									for(int f = 0;f < jn.size();f ++){
 										if(this.buyHistory.get(jn.get(f)).containsKey(a3[b])){
 											
@@ -971,9 +971,9 @@ public class CollaborativeFiltering {
 			
 		}
 		
-		//ËùÓĞ½á¹ûÒÑ¾ÍĞ÷£¬´òÓ¡ÍÆ¼öÁĞ±í
+		//æ‰€æœ‰ç»“æœå·²å°±ç»ªï¼Œæ‰“å°æ¨èåˆ—è¡¨
 		
-		//´òÓ¡jaccardNeighbor
+		//æ‰“å°jaccardNeighbor
 		BufferedWriter writer = null;
 		BufferedWriter writer2 = null;
 		BufferedWriter writer3 = null;
@@ -986,7 +986,7 @@ public class CollaborativeFiltering {
 			StringBuilder sb1 = new StringBuilder();
 			String [] tt = this.jaccardNeighbors.keySet().toArray(new String[0]);
 			for(int u = 0;u < tt.length;u ++){
-				//Îª·½±ã¹Û²ì£¬½«ÎŞÊµ¼ÊÊı¾İµÄ¼ÇÂ¼´Ó½á¹ûÖĞÌŞ³ı£¬²»ÔÙ´òÓ¡
+				//ä¸ºæ–¹ä¾¿è§‚å¯Ÿï¼Œå°†æ— å®é™…æ•°æ®çš„è®°å½•ä»ç»“æœä¸­å‰”é™¤ï¼Œä¸å†æ‰“å°
 				if(this.jaccardNeighbors.get(tt[u]) != null && this.jaccardNeighbors.get(tt[u]).size() > 0){
 					sb1.append(tt[u] + '\t');
 					
@@ -1002,7 +1002,7 @@ public class CollaborativeFiltering {
 			writer = new BufferedWriter(new FileWriter(this.outputPath + "/jaccard_neighbor_list.csv"));
 			writer.write(sb1.toString());
 			
-			//´òÓ¡pearsonNeighbor
+			//æ‰“å°pearsonNeighbor
 			tt = null;
 			StringBuilder sb2 = new StringBuilder();
 			tt = this.pearsonNeighbor.keySet().toArray(new String[0]);
@@ -1022,7 +1022,7 @@ public class CollaborativeFiltering {
 			writer2 = new BufferedWriter(new FileWriter(this.outputPath + "/pearson_neighbor_list.csv"));
 			writer2.write(sb2.toString());
 			
-			//´òÓ¡jaccardRecommedation
+			//æ‰“å°jaccardRecommedation
 			StringBuilder sb3 = new StringBuilder();
 			StringBuilder sb5 = new StringBuilder();
 			tt = null;
@@ -1058,7 +1058,7 @@ public class CollaborativeFiltering {
 			writer5 = new BufferedWriter(new FileWriter(this.outputPath + "/jaccard_recommendation_with_score.csv"));
 			writer5.write(sb5.toString());
 			
-			//´òÓ¡pearsonRecommdation
+			//æ‰“å°pearsonRecommdation
 			StringBuilder sb4 = new StringBuilder();
 			StringBuilder sb6 = new StringBuilder();
 			tt = null;
@@ -1092,11 +1092,11 @@ public class CollaborativeFiltering {
 			writer6.write(sb6.toString());
 			
 			
-			//<<<<<<<<< ½«¶ÔÍÆ¼ö³¤¶ÈµÄÏŞÖÆÄÉÈë½á¹ûÉú³É¹ı³Ì (ÈôÓÃ»§Ìá¹©ÁËÍÆ¼ö³¤¶ÈÏŞÖÆ)
+			//<<<<<<<<< å°†å¯¹æ¨èé•¿åº¦çš„é™åˆ¶çº³å…¥ç»“æœç”Ÿæˆè¿‡ç¨‹ (è‹¥ç”¨æˆ·æä¾›äº†æ¨èé•¿åº¦é™åˆ¶)
 			
 			if(this.recommLong != null){
 				
-				//´ÓÍÆ¼öÁĞ±íÎª¸÷Î»ÓÃ»§Ñ¡È¡³ö¹æ¶¨³¤¶ÈµÄÍÆ¼öÆ·ÅÆ
+				//ä»æ¨èåˆ—è¡¨ä¸ºå„ä½ç”¨æˆ·é€‰å–å‡ºè§„å®šé•¿åº¦çš„æ¨èå“ç‰Œ
 				int jr = 0;
 				int pr = 0;
 				List<String> l1 = null;
@@ -1116,7 +1116,7 @@ public class CollaborativeFiltering {
 					if(jr > 0 && this.recommLong.get(this.index2User.get(u)) != null
 							&& this.recommLong.get(this.index2User.get(u)) > 0){
 							sb7.append(this.index2User.get(u) + '\t');
-							//Ñ¡È¡³övalue×î¸ßµÄx¸öÍÆ¼öÆ·ÅÆ
+							//é€‰å–å‡ºvalueæœ€é«˜çš„xä¸ªæ¨èå“ç‰Œ
 							l1 = new ArrayList<String>(this.jaccardRecommedation.get(this.index2User.get(u)).keySet());
 							
 							max = null;
@@ -1171,7 +1171,7 @@ public class CollaborativeFiltering {
 						}
 						sb8.append('\n');
 					}
-					//ÁÙÊ±
+					//ä¸´æ—¶
 					else if(pr > 0){
 						sb8.append(this.index2User.get(u) + '\t');
 						l2 = new ArrayList<String>(this.pearsonRecommedation.get(this.index2User.get(u)).keySet());
@@ -1265,8 +1265,8 @@ public class CollaborativeFiltering {
 		buildPearsonMatrix();
 		recommendationItems();
 		Date end = new Date();
-		System.out.println("<<<<<<<<¹²ºÄÊ±  £º" + (end.getTime() - begin.getTime()) / 1000 + "Ãë");
-		System.out.println("¹²ÍÆ¼öÉÌÆ· £º " + this.recommCounter);
+		System.out.println("<<<<<<<<å…±è€—æ—¶  ï¼š" + (end.getTime() - begin.getTime()) / 1000 + "ç§’");
+		System.out.println("å…±æ¨èå•†å“ ï¼š " + this.recommCounter);
 	}
 	public static void main(String[] args){
 		if(args.length < 4)
