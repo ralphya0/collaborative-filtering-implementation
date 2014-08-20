@@ -10,7 +10,9 @@ collaborative-filtering-implementation
  
 
  9842500,16199,0,5月6日
+ 
  4356600,13299,3,5月8日
+ 
  ...
 
  Each row in this file is an entry of transaction log. The first column stands for user id, the second one means
@@ -26,5 +28,7 @@ collaborative-filtering-implementation
  USAGE:
  
  First, you need to compile this source code;
+ 
  then you can run this program in command line like this :
+ 
  java CollaborativeFiltering input_file_path output_dir click_threshold neighbor_filter_value recommendation_length_limit[OPTIONNAL] 
