@@ -1187,14 +1187,12 @@ public class CollaborativeFiltering {
 				writer8.write(sb8.toString());
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(writer != null){
 			try {
 				writer.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1202,7 +1200,6 @@ public class CollaborativeFiltering {
 			try {
 				writer2.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1210,7 +1207,6 @@ public class CollaborativeFiltering {
 			try {
 				writer3.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1218,7 +1214,6 @@ public class CollaborativeFiltering {
 			try {
 				writer4.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1226,7 +1221,6 @@ public class CollaborativeFiltering {
 			try {
 				writer5.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1234,7 +1228,6 @@ public class CollaborativeFiltering {
 			try {
 				writer6.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1242,7 +1235,6 @@ public class CollaborativeFiltering {
 			try {
 				writer7.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -1250,7 +1242,6 @@ public class CollaborativeFiltering {
 			try {
 				writer8.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
